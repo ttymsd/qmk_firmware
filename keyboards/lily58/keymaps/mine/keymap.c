@@ -29,6 +29,10 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  MO_LEFT,
+  MO_RGHT,
+  MO_UP,
+  MO_DOWN,
 };
 
 
@@ -64,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  |  F10 |  F11 | F12  |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
+ * |  F7  |  F8  |  MO  |  MO  |  MO  | MO   |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -74,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______,  _______,                  _______,  _______,  _______, _______, _______, _______,\
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,                    JP_MKANA, JP_MEISU, _______, _______, _______, _______,\
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC,                  KC_CIRC,  KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD, \
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12, _______, _______, JP_UNDS,  KC_UNDS,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  KC_F7,   KC_F8,   MO_LEFT, MO_DOWN, MO_UP ,   MO_RGHT, _______, _______, JP_UNDS,  KC_UNDS,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
                              _______, _______, _______, _______, _______, _______, _______, _______\
 ),
 /* RAISE
@@ -234,6 +238,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-  }
+    case MO_UP:
+        if (record->event.pressed) {
+          register_code(KC_LCTRL);
+          register_code(KC_UP);
+        } else {
+          unregister_code(KC_UP);
+          unregister_code(KC_LCTRL);
+        }
+        return false;
+        break;
+     case MO_DOWN:
+        if (record->event.pressed) {
+          register_code(KC_LCTRL);
+          register_code(KC_DOWN);
+        } else {
+          unregister_code(KC_DOWN);
+          unregister_code(KC_LCTRL);
+        }
+        return false;
+        break;
+   case MO_LEFT:
+        if (record->event.pressed) {
+          register_code(KC_LCTRL);
+          register_code(KC_LEFT);
+        } else {
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LCTRL);
+        }
+        return false;
+        break;
+    case MO_RGHT:
+        if (record->event.pressed) {
+          register_code(KC_LCTRL);
+          register_code(KC_RGHT);
+        } else {
+          unregister_code(KC_RGHT);
+          unregister_code(KC_LCTRL);
+        }
+        return false;
+        break;
+ }
   return true;
 }
