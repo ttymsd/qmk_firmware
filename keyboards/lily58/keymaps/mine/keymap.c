@@ -243,8 +243,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_LCTRL);
           register_code(KC_UP);
         } else {
-          unregister_code(KC_LEFT);
           unregister_code(KC_UP);
+          unregister_code(KC_LCTRL);
         }
         return false;
         break;
@@ -253,8 +253,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_LCTRL);
           register_code(KC_DOWN);
         } else {
-          unregister_code(KC_LEFT);
           unregister_code(KC_DOWN);
+          unregister_code(KC_LCTRL);
         }
         return false;
         break;
