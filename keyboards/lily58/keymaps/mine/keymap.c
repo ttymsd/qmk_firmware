@@ -33,6 +33,7 @@ enum custom_keycodes {
   MO_RGHT,
   MO_UP,
   MO_DOWN,
+  MO_REFA
 };
 
 
@@ -75,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT( \
-  _______, _______, _______, _______, _______,  _______,                  _______,  _______,  _______, _______, _______, _______,\
+  _______, _______, _______, _______, _______,  MO_REFA,                  _______,  _______,  _______, _______, _______, _______,\
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,                    JP_MKANA, JP_MEISU, _______, _______, _______, _______,\
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC,                  KC_CIRC,  KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD, \
   KC_F7,   KC_F8,   MO_LEFT, MO_DOWN, MO_UP ,   MO_RGHT, _______, _______, JP_UNDS,  KC_UNDS,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
@@ -275,6 +276,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           unregister_code(KC_RGHT);
           unregister_code(KC_LCTRL);
+        }
+        return false;
+        break;
+    case MO_REFA:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_F6);
+        } else {
+          unregister_code(KC_F6);
+          unregister_code(KC_LSFT);
         }
         return false;
         break;
